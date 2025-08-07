@@ -1,4 +1,4 @@
- FROM debian:stable-slim AS base
+FROM debian:stable-slim AS base
 
 ARG DEBIAN_FRONTEND=noninteractive
 ENV NODE_ENV=production
@@ -11,7 +11,7 @@ RUN <<EOF
 mkdir -p /app /npmcache
 apt update
 apt install -y --no-install-recommends tzdata ca-certificates curl unzip \
-    nginx build-essential python3 make gcc g++ \
+    caddy build-essential python3 make gcc g++ \
     libpng-dev libjpeg-dev libpango-1.0-0 libpango1.0-dev libcairo2-dev \
     libgif-dev glibc-source libstdc++6
 

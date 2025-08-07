@@ -11,7 +11,7 @@ RUN <<EOF
 mkdir -p /app /npmcache
 apt update
 apt install -y --no-install-recommends tzdata ca-certificates curl unzip \
-    nginx xz-utils
+    caddy xz-utils
 
 apt clean -y > /dev/null
 rm -rf /var/cache/apt/archives /var/lib/apt/lists

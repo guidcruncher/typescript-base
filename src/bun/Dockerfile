@@ -9,7 +9,7 @@ RUN <<EOF
 mkdir -p /app
 apt update
 apt install -y --no-install-recommends tzdata ca-certificates curl unzip \
-    nginx
+    caddy
 
 apt clean -y > /dev/null
 rm -rf /var/cache/apt/archives /var/lib/apt/lists

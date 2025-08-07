@@ -1,6 +1,6 @@
 #!/bin/bash
 
-nginx -c /etc/nginx/nginx.conf
+caddy start
 
-bun $@
+deno $@
 

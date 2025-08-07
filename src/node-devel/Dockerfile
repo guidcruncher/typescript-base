@@ -7,7 +7,7 @@ ENV TZ=UTC
 
 RUN <<EOF
 mkdir -p /src
-npm install -g typescript ts-node nodemon 
+npm install -g typescript ts-node nodemon caddy
 npm install -g tslib @types/node
 EOF
 
