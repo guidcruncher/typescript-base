@@ -1,6 +1,9 @@
 #!/bin/bash
 docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
 
+cd ./node-alsa
+docker buildx build . -f ./Dockerfile -t guidcruncher/typescript-base:node-alsa-latest --pull --push
+
 cd ./node
 docker buildx build . -f ./Dockerfile -t guidcruncher/typescript-base:node-latest --pull --push
 
