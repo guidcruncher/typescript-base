@@ -18,6 +18,8 @@ apt install -y --no-install-recommends tzdata ca-certificates curl unzip \
 apt clean -y > /dev/null
 rm -rf /var/cache/apt/archives /var/lib/apt/lists
 echo $TZ > /etc/timezone
+ln -s /lib/modules/6.12.41+deb13-arm64/ /lib/modules/6.12.34+rpt-rpi-v8
+modprobe snd_aloop
 
 curl -L "https://nodejs.org/dist/v24.4.1/node-v24.4.1-linux-arm64.tar.xz" -o ./node.tar.xz
 tar xvf ./node.tar.xz -C /usr/local/ --strip-components=1
