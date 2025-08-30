@@ -2,7 +2,7 @@
 pipewirepid=$(pgrep pipewire)
 
 if [ -n "$pipewirepid" ]; then
-  kill -9 "$pipewirepid"
+  trap "kill -9 $pipewirepid" EXIT
 fi
 
 pipewire -c $XDG_CONFIG_HOME/pipewire/pipewire.conf &
