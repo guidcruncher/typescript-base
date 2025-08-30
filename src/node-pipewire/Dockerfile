@@ -31,15 +31,16 @@ apt install -y --no-install-recommends tzdata ca-certificates curl unzip \
 apt clean -y > /dev/null
 mkdir -p /config/pipewire /config/wireplumber
 
-mv /usr/share/wireplumber/wireplumber.conf $XDG_CONFIG_HOME/wireplumber/
-mv /usr/share/pipewire/pipewire.conf $XDG_CONFIG_HOME/pipewire/
-mv /usr/share/pipewire/client.conf $XDG_CONFIG_HOME/pipewire/
-mv /usr/share/pipewire/filter-chain.conf $XDG_CONFIG_HOME/pipewire/
-mv /usr/share/pipewire/pipewire-pulse.conf $XDG_CONFIG_HOME/pipewire/
-mv /usr/share/pipewire/jack.conf $XDG_CONFIG_HOME/pipewire/
+# mv /usr/share/wireplumber/wireplumber.conf $XDG_CONFIG_HOME/wireplumber/
+# mv /usr/share/pipewire/pipewire.conf $XDG_CONFIG_HOME/pipewire/
+# mv /usr/share/pipewire/client.conf $XDG_CONFIG_HOME/pipewire/
+# mv /usr/share/pipewire/filter-chain.conf $XDG_CONFIG_HOME/pipewire/
+# mv /usr/share/pipewire/pipewire-pulse.conf $XDG_CONFIG_HOME/pipewire/
+# mv /usr/share/pipewire/jack.conf $XDG_CONFIG_HOME/pipewire/
 
 EOF
 
+COPY ./configs/ /local/config/
 WORKDIR /app
 COPY ./start.sh /app/start.sh
 RUN chmod +x /app/start.sh
