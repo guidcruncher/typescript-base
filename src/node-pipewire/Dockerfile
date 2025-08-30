@@ -28,10 +28,18 @@ apt install -y --no-install-recommends tzdata ca-certificates curl unzip \
     libcamera-ipa pipewire-libcamera pipewire-audio pipewire wireplumber \
     dbus-x11 rtkit dbus-user-session nano easyeffects pipewire-pulse pipewire-audio-client-libraries pulseaudio-utils \
     pipewire-alsa pipewire-jack pipewire-v4l2 gstreamer1.0-pipewire libpipewire-0.3-modules \
-    libspa-0.2-jack libspa-0.2-modules
+    libspa-0.2-jack libspa-0.2-modules wireplumber
 
 apt clean autoclean -y > /dev/null
 rm -rf /var/lib/apt/lists/* /var/tmp/* /tmp/*
+
+echo $TZ > /etc/timezone
+ln -s /lib/modules/6.12.41+deb13-arm64/ /lib/modules/6.12.34+rpt-rpi-v8
+curl -L "https://nodejs.org/dist/v24.4.1/node-v24.4.1-linux-arm64.tar.xz" -o ./node.tar.xz
+tar xvf ./node.tar.xz -C /usr/local/ --strip-components=1
+rm ./node.tar.xz
+npm install -g typescript ts-node
+npm install -g tslib @types/node
 EOF
 
 FROM base AS production
