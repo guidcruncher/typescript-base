@@ -9,7 +9,7 @@ dbus-launch --config-file=/usr/share/dbus-1/session.conf | sed 's/^/export /' >>
 
 source /etc/bash.bashrc
 
-pipewire -c /etc/pipewire/pipewire.conf &
-wireplumber -c /etc/wireplumber/wireplumber.conf &
+pipewire -c $XDG_CONFIG_HOME/pipewire/pipewire.conf &
+wireplumber -c $XDG_CONFIG_HOME/wireplumber/wireplumber.conf &
 
 tail -f /dev/null
