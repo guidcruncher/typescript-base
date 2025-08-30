@@ -1,4 +1,4 @@
-FROM debian:stable AS base
+FROM debian:stable-slim AS base
 
 ARG DEBIAN_FRONTEND=noninteractive
 ENV NODE_ENV=production

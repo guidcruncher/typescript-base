@@ -1,0 +1,15 @@
+#!/bin/bash
+
+mkdir -p /var/run/dbus
+mkdir -p /run/dbus
+# dbus-uuidgen > /var/lib/dbus/machine-id
+# dbus-daemon --config-file=/usr/share/dbus-1/system.conf --print-address --fork
+
+dbus-launch --config-file=/usr/share/dbus-1/session.conf | sed 's/^/export /' >> /etc/bash.bashrc
+
+source /etc/bash.bashrc
+
+pipewire -c /etc/pipewire/pipewire.conf &
+wireplumber -c /etc/wireplumber/wireplumber.conf &
+
+tail -f /dev/null
