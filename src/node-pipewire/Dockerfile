@@ -16,19 +16,28 @@ ENV PULSE_RUNTIME_PATH="/tmp/"
 ENV DISABLE_RTKIT=y
 ENV PIPEWIRE_RUNTIME_DIR=/tmp
 
+WORKDIR /app
+
+COPY ./update-librespot.sh /app/update-librespot.sh
+
 RUN <<EOF
-mkdir -p $XDG_DATA_HOME $XDG_CONFIG_HOME $XDG_STATE_HOME $XDG_CONFIG_HOME/pipewire $XDG_CONFIG_HOME/wireplumber $XDG_DATA_HOME/wireplumber $XDG_CONFIG_HOME/pipewire/pipewire.conf.d $XDG_CONFIG_HOME/pipewire/client.conf.d/ $XDG_CONFIG_HOME/pipewire/pipewire-pulse.conf.d/ $XDG_CONFIG_HOME/pipewire/jack.conf.d/ $XDG_CONFIG_HOME/pipewire/filter-chain.conf.d/
+chmod +x /app/update-librespot.sh
+mkdir -p /etc/go-librespot /etc/mpd $XDG_DATA_HOME $XDG_CONFIG_HOME $XDG_STATE_HOME $XDG_CONFIG_HOME/pipewire $XDG_CONFIG_HOME/wireplumber $XDG_DATA_HOME/wireplumber $XDG_CONFIG_HOME/pipewire/pipewire.conf.d $XDG_CONFIG_HOME/pipewire/client.conf.d/ $XDG_CONFIG_HOME/pipewire/pipewire-pulse.conf.d/ $XDG_CONFIG_HOME/pipewire/jack.conf.d/ $XDG_CONFIG_HOME/pipewire/filter-chain.conf.d/
 
 mkdir -p /app /npmcache
 apt update
-apt install -y --no-install-recommends tzdata ca-certificates curl unzip \
+# --no-install-recommends
+apt install -y \
+    tzdata ca-certificates curl unzip \
     caddy xz-utils libpipewire-0.3-0  zstd alsa-utils alsa-tools libasound2 \
     libogg-dev libvorbis-dev libasound2-dev libasound2-plugin-equal \
     libasound2-plugins \
     libcamera-ipa pipewire-libcamera pipewire-audio pipewire wireplumber \
     dbus-x11 rtkit dbus-user-session nano easyeffects pipewire-pulse pipewire-audio-client-libraries pulseaudio-utils \
     pipewire-alsa pipewire-jack pipewire-v4l2 gstreamer1.0-pipewire libpipewire-0.3-modules \
-    libspa-0.2-jack libspa-0.2-modules wireplumber
+    libspa-0.2-jack libspa-0.2-modules wireplumber mpd mpc ffmpeg jq
+
+/app/update-librespot.sh
 
 apt clean autoclean -y > /dev/null
 rm -rf /var/lib/apt/lists/* /var/tmp/* /tmp/*
@@ -43,6 +52,8 @@ npm install -g tslib @types/node
 EOF
 
 FROM base AS production
+COPY ./mpd.conf /etc/mpd/mpd.conf
+COPY ./config.yml /etc/go-librespot/config.yml
 
 COPY ./configs/ /local/config/
 WORKDIR /app
