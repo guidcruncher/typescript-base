@@ -25,8 +25,7 @@ apt install -y --no-install-recommends tzdata ca-certificates curl unzip \
     libogg-dev libvorbis-dev libasound2-dev libasound2-plugin-equal \
     libasound2-plugins \
     libcamera-ipa pipewire-libcamera pipewire-audio pipewire wireplumber \
-    dbus-x11 rtkit dbus-user-session
-
+    dbus-x11 rtkit dbus-user-session nano
 
 apt clean -y > /dev/null
 mkdir -p /config/pipewire /config/wireplumber
@@ -42,8 +41,8 @@ EOF
 
 COPY ./configs/ /local/config/
 WORKDIR /app
-COPY ./start.sh /app/start.sh
-RUN chmod +x /app/start.sh
+COPY ./*/.sh /app/
+RUN chmod +x /app/*.sh
 ENTRYPOINT [ "/bin/bash", "-E", "-c" ]
 CMD ["/app/start.sh"]
 
